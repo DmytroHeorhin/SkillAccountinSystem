@@ -27,10 +27,7 @@ namespace SAS.DAL.Repositories
         {
             return _dbSet.FirstOrDefault(e => e.Id == id);
         }
-
-        /// <summary>
-        /// Returns an  all elements with the given id. If there is no element with the given id returns default value of type <typeparamref name="T"/>.
-        /// </summary>
+        
         public virtual IEnumerable<T> GetAll()
         {
             return _dbSet.OrderBy(e => e.Id).ToList();
