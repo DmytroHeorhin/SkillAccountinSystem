@@ -1,0 +1,53 @@
+﻿@using SAS.WEB.Models
+@model IEnumerable<RequestViewModel>
+<div class="container">
+    <h3>Search history</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @if (Model.Count() == 0)
+                    {
+                        <p>You have not done any requests yet. Click <b><span class="fa fa-search-plus"></span> New request</b> to add some!</p>
+                    }
+                    else
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Time</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int i = 0; }
+                                @foreach (RequestViewModel request in Model)
+                                {
+                                    i++;
+                                    <tr>
+                                        <td class="col-md-1">@i</td>
+                                        <td>@request.DateTime</td>
+                                        <td>@request.Name</td>
+                                        <td>
+                                            <a href="/Request/RequestByName/?requestName=@request.Name"><span class="fa fa-search"></span> Observe</a>
+                                        </td>
+                                        <td>
+                                            <a href="/Request/DeleteRequestByName/?requestName=@request.Name"><span class="fa fa-trash-o"></span> Remove</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                      }
+                </div>
+            </div>
+            <p>
+                <a class="btn btn-default" href="/Request/CreateRequest"><span class="fa fa-search-plus"></span> New request</a>
+                <a class="btn btn-default @(Model.Count() == 0 ? "disabled" : "")" href="/Request/DeleteAllRequests"><span class="fa fa fa-trash"></span> Clear search history</a>
+            </p>
+        </div>
+    </div>
+</div>

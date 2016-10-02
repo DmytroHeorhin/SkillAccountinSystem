@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Unsuccessful";
+}
+
+<h4>Unfortunately, something went wrong and your request has not been deleted. Please, try again later or contact our technical support service.</h4>
+<div class="row">
+    <div class="col-md-3">
+        <p><a class="btn btn-default" href="@Url.Action("Contact", "Home")">Contact</a></p>
+    </div>
+    <div class="col-md-3">
+        <p><a class="btn btn-default" href="@Url.Action("Requests", "Request")">Back to request history</a></p>
+    </div>
+</div>
+
+@ViewBag.Massage
+

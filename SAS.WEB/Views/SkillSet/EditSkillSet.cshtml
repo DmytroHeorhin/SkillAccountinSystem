@@ -1,0 +1,38 @@
+﻿@using SAS.WEB.Models;
+@model SkillSetViewModel
+
+<h2>Edit skill set</h2>
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm("EditSkillSet", "SkillSet", FormMethod.Post))
+        {
+            @SkillList.SkillListFor(Model)
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Skill level description</h4></div>
+            <select id="description" align="right">
+                <option value="0">Choose your level</option>
+                <option value="1" data-html="Beginner">Beginner</option>
+                <option value="2" data-html="Intermediate">Intermediate</option>
+                <option value="3" data-html="Advanced">Advanced</option>
+                <option value="4" data-html="Expert">Expert</option>
+            </select>
+            <div class="rateit" data-rateit-backingfld="#description"></div>
+            <div>
+                <span id="rateddescr"></span>
+            </div>
+            <script type="text/javascript">
+                $("#description").bind('rated', function (event, value) { $('#rateddescr').text('You\'ve rated it: ' + value); });
+            </script>
+
+        </div>
+    </div>
+</div>
+     

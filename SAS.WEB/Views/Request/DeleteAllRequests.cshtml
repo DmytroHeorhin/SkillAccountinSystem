@@ -1,0 +1,8 @@
+﻿<h3>Are you sure you want to clear your search history?</h3>
+@using (Html.BeginForm("DeleteAllRequests", "Request", FormMethod.Post))
+{
+    <p>
+        <input class="btn btn-default" type="submit" value="Yes, clear history" />
+        <a class="btn btn-default" href="/Request/Requests"><span class="fa fa-history"></span> No, back to history</a>       
+    </p>
+}

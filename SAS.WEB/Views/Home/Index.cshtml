@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Welcome!</h2>
+<div>This is Skill Accounting System</div>
+
+@if (Request.IsAuthenticated)
+{
+<h3>Hello @User.Identity.GetUserName()!</h3>
+}
+else
+{
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            Skill Accounting System has been created to help employers find professionals with required skill sets and create team which will fulfill their business needs.
+            <br />Sign in to get started!  
+        </p>   
+        <p><a class="btn btn-default" href="@Url.Action("Login", "Account")"><span class="fa fa-sign-in"></span> Sign in</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Looking for a job?</h2>
+        <p>Register as candidate, rate your skills and employers will find you and give you offers.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Register", "Account")">Register as candidate</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Looking for employees?</h2>
+        <p>Register as employer, provide your requirements and choose from list of candidates who have appropriate skills.</p>
+        <p><a class="btn btn-default" href="@Url.Action("RegisterAsManager", "Account")">Register as employer</a></p>
+    </div>
+</div>
+}

@@ -1,0 +1,23 @@
+﻿Functions:
+Validate email in BLL
+Date of skill set editing
+Copy settings and create new request
+Manager tools: delete category/skill
+Administrator tools
+List of favorite users (also groups of them)
+Remove chosen requests
+Avatar in user profile
+Notifications about new skills available to rate/request
+
+Appearance:
+Carousel
+Coloring
+
+Structure:
+Comments
+Tests
+HTML5 microdata
+
+
+
+

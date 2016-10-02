@@ -1,0 +1,38 @@
+﻿@using SAS.WEB.Models
+@model RequestViewModel
+
+<h2>@Model.Name</h2>
+<h3>Skill requirements of request</h3>
+@foreach (CategoryViewModel category in Model.Request.Categories.Where(c => c.ContainsPositiveSkillGrades == true))
+{
+    <h4>@category.Name</h4>
+    foreach (SkillModel skill in category.Skills.Where(s => s.SkillGrade.Grade > 0))
+    {
+        <div class="row">
+            <div class="col-md-3">
+                <h6>@(skill.Name)</h6>
+            </div>
+            <div class="col-md-6">
+                <select id="@("sr" + skill.Id)" name="grades" disabled>
+                    <option value="0" @(skill.SkillGrade.Grade == 0 ? "selected" : "")>Choose your level</option>
+                    <option value="1" @(skill.SkillGrade.Grade == 1 ? "selected" : "")>Beginner</option>
+                    <option value="2" @(skill.SkillGrade.Grade == 2 ? "selected" : "")>Intermediate</option>
+                    <option value="3" @(skill.SkillGrade.Grade == 3 ? "selected" : "")>Advanced</option>
+                    <option value="4" @(skill.SkillGrade.Grade == 4 ? "selected" : "")>Expert</option>
+                </select>
+                <div class="rateit" data-rateit-backingfld="#@("sr" + skill.Id)"></div>
+            </div>
+        </div>
+    }
+}
+
+<h3>Are you sure you want to remove this request from your search history?</h3>
+@using (Html.BeginForm("DeleteRequestByName", "Request", FormMethod.Post))
+{
+    <p>
+        <input name="requestName" type="hidden" value="@Model.Name" />
+        <input class="btn btn-default" type="submit" value="Yes, remove it" />
+        <a class="btn btn-default" href="/Request/Requests"><span class="fa fa-history"></span> No, back to history</a>
+        <a class="btn btn-default" href="/Request/RequestByName/?requestName=@Model.Name"><span class="fa fa-search"></span> Search by this request again</a>
+    </p>
+}

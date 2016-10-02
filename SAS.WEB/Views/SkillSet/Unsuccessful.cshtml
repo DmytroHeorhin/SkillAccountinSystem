@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Unsuccessful";
+}
+
+<h4>Unfortunately, something went wrong and your skill set has not been updated. Please, try again later or contact our technical support service.</h4>
+<div class="row">
+    <div class="col-md-3">
+        <p><a class="btn btn-default" href="@Url.Action("Contact", "Home")">Contact</a></p>
+    </div>
+    <div class="col-md-3">
+        <p><a class="btn btn-default" href="@Url.Action("SkillSet", "SkillSet")">Back to skill set</a></p>
+    </div>
+</div>
+
+@ViewBag.Massage
+

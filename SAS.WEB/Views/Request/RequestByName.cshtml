@@ -1,0 +1,54 @@
+﻿@using SAS.WEB.Models
+@using PagedList.Mvc
+@model RequestViewModel
+<div class="container">
+    <h3>Request details</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Search results</h4></div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Candidate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int i = 0; }
+                            @foreach (UserViewModel user in Model.Users)
+                            {
+                                 i++; 
+                                <tr>
+                                    <td class="col-md-1">@i</td>
+                                    <td><a href="/UserProfile/ProfileOfUser/?userName=@user.UserName">@user.UserName</a></td>
+                                </tr>
+                            }
+                            <tr>
+                                <td align="center" colspan="2">
+                                    @Html.PagedListPager(Model.Users, page => Url.Action("RequestByName", "Request", new { requestName = Model.Name, page = page }))
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+            <p>
+                <a class="btn btn-default" href="/Request/CreateRequest"><span class="fa fa-search-plus"></span> New request</a>
+                <a class="btn btn-default" href="/Request/Requests"><span class="fa fa-history"></span> Request history</a>
+            </p>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Request name</h4></div>
+                <div class="panel-body"><p>@Model.Name</p></div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Skill requirements</h4></div>
+                <div class="panel-body"><p>@SkillList.PositiveSkillListFor(Model.Request)</p></div>
+            </div>
+        </div>
+    </div>
+</div>
