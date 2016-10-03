@@ -1,4 +1,6 @@
 ﻿Functions:
+Info pages
+Skill level info
 Validate email in BLL
 Date of skill set editing
 Copy settings and create new request
@@ -11,10 +13,9 @@ Notifications about new skills available to rate/request
 
 Appearance:
 Carousel
-Coloring
+Drop-downs in navigation bar
 
 Structure:
-Comments
 Tests
 HTML5 microdata
 

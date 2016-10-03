@@ -4,6 +4,9 @@ using SAS.BLL.Infrastructure;
 
 namespace SAS.BLL.Interfaces
 {
+    /// <summary>
+    /// Contains methods for getting, adding and deleting categories. 
+    /// </summary>
     public interface ICategoryService
     {
         IEnumerable<CategoryDTO> GetAll();

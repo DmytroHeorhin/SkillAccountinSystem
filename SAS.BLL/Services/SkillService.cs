@@ -9,6 +9,9 @@ using SAS.BLL.Infrastructure;
 
 namespace SAS.BLL.Services
 {
+    /// <summary>
+    /// Contains methods for getting, adding and deleting skills. 
+    /// </summary>
     public class SkillService : ISkillService
     {
         IUnitOfWork unitOfWork;

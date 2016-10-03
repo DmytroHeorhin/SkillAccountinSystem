@@ -14,6 +14,9 @@ using SAS.BLL.Mapping;
 
 namespace SAS.BLL.Services
 {
+    /// <summary>
+    /// Contains methods for managing users. 
+    /// </summary>
     public class UserService : IUserService
     {
         IUnitOfWork unitOfWork;
@@ -87,21 +90,6 @@ namespace SAS.BLL.Services
             return claim;
         }
 
-        // начальная инициализация бд
-        public async Task SetInitialData(UserDTO adminDto, List<string> roles)
-        {
-            foreach (string roleName in roles)
-            {
-                var role = await unitOfWork.RoleManager.FindByNameAsync(roleName);
-                if (role == null)
-                {
-                    role = new IdentityRole { Name = roleName };
-                    await unitOfWork.RoleManager.CreateAsync(role);
-                }
-            }
-            await Create(adminDto);
-        }
-
         public IEnumerable<UserDTO> GetAll()
         {
             try
@@ -114,6 +102,9 @@ namespace SAS.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Gets collection of users which fulfills the given skill requirements.
+        /// </summary>
         public IEnumerable<UserDTO> GetByRequest(IEnumerable<SkillRequirementDTO> request)
         {
             if(request == null)

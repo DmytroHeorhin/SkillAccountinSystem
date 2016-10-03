@@ -5,6 +5,9 @@ using SAS.BLL.Infrastructure;
 
 namespace SAS.BLL.Interfaces
 {
+    /// <summary>
+    /// Contains methods for getting and adding/updating skill sets. 
+    /// </summary>
     public interface ISkillSetService 
     {      
         Task<OperationDetails> UpdateSkillSet(SkillSetDTO skillSet);

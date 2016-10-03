@@ -5,6 +5,9 @@ using SAS.BLL.Infrastructure;
 
 namespace SAS.BLL.Interfaces
 {
+    /// <summary>
+    /// Contains methods for getting, adding and deleting requests. 
+    /// </summary>
     public interface IRequestService 
     {
         Task<OperationDetails> Create(RequestDTO requestDTO);

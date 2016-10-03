@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SAS.BLL.Services
 {
+    /// <summary>
+    /// Contains methods for getting and adding/updating user profiles. 
+    /// </summary>
     public class UserProfileService : IUserProfileService
     {
         IUnitOfWork unitOfWork;
@@ -17,6 +20,9 @@ namespace SAS.BLL.Services
             this.unitOfWork = unitOfWork;
         }
 
+        /// <summary>
+        /// Sets the given user profile to it's user. If user already has user profile - overrides it.
+        /// </summary>
         public async Task<OperationDetails> UpdateUserProfileAsync(UserProfileDTO profile)
         {
             try

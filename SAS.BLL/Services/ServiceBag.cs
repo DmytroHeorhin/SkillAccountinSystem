@@ -4,6 +4,9 @@ using SAS.DAL.Interfaces;
 
 namespace SAS.BLL.Services
 {
+    /// <summary>
+    /// Contains properties for getting instances of services. 
+    /// </summary>
     public class ServiceBag : IServiceBag
     {
         IUnitOfWork unitOfWork;

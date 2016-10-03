@@ -7,24 +7,27 @@
     <div class="row">
         @if (Request.IsAuthenticated && User.IsInRole("manager"))
         {
-            <div class="col-md-6 panel panel-default">
-                <div class="panel-heading"><h3>Manager</h3></div>
-                <div class="panel-body">
-                    <a class="btn btn-default" href="/Tools/CreateCategory">Create category</a>
-                    <a class="btn btn-default" href="/Tools/CreateSkill">Create skill</a>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3>Manager</h3></div>
+                    <div class="panel-body">
+                        <a class="btn btn-default" href="/Tools/CreateCategory">Create category</a>
+                        <a class="btn btn-default" href="/Tools/CreateSkill">Create skill</a>
+                    </div>
                 </div>
             </div>
         }
-        @if (Request.IsAuthenticated && User.IsInRole("manager"))
+        @if (Request.IsAuthenticated && User.IsInRole("administrator"))
         {
-            <div class="col-md-6 panel panel-default">
-                <div class="panel-heading"><h3>Administrator</h3></div>
-                <div class="panel-body">
-                    
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3>Administrator</h3></div>
+                    <div class="panel-body">
 
 
+                    </div>
+                    </div>
                 </div>
-            </div>
         }
     </div>
 </div>

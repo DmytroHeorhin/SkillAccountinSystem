@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace SAS.BLL.Services
 {
+    /// <summary>
+    /// Contains methods for getting, adding and deleting categories. 
+    /// </summary>
     public class CategoryService : ICategoryService
     {
         IUnitOfWork unitOfWork;

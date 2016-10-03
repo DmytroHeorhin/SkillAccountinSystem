@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace SAS.BLL.Services
 {
+    /// <summary>
+    /// Contains methods for getting and adding/updating skill sets. 
+    /// </summary>
     public class SkillSetService : ISkillSetService
     {
         IUnitOfWork unitOfWork;
@@ -20,6 +23,9 @@ namespace SAS.BLL.Services
             mapper = new ComplexMapper(unitOfWork);
         }
 
+        /// <summary>
+        /// Sets the given skill set to it's user. If user already has skill set - overrides it.
+        /// </summary>
         public async Task<OperationDetails> UpdateSkillSet(SkillSetDTO skillSet)
         {
             try
@@ -64,6 +70,9 @@ namespace SAS.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Gets all skill grades which are present in skill set of user with the given name. If there is no user with the given name returns null. 
+        /// </summary>
         public async Task<IEnumerable<SkillGradeDTO>> Find(string userName)
         {
             if (userName == null || userName == string.Empty)

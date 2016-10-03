@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace SAS.BLL.Services
 {
+    /// <summary>
+    /// Contains methods for getting, adding and deleting requests. 
+    /// </summary>
     public class RequestService : IRequestService
     {
         IUnitOfWork unitOfWork;
@@ -23,10 +26,13 @@ namespace SAS.BLL.Services
             mapper = new ComplexMapper(unitOfWork);
         }
 
+        /// <summary>
+        /// Adds the given request to collection of requests of it's user. 
+        /// </summary>
         public async Task<OperationDetails> Create(RequestDTO requestDTO)
         {
-            //try
-           // {
+            try
+            {
                 if (requestDTO == null)
                 {
                     return new OperationDetails(false, "Empty request has been provided", "");
@@ -69,13 +75,16 @@ namespace SAS.BLL.Services
                 }
                 await unitOfWork.SaveAsync();
                 return new OperationDetails(true, "Request was successfully created", requestName);
-           // }
-           // catch(Exception ex)
-           // {
-            //    return new OperationDetails(false, ex.Message, "");
-           // }
+            }
+            catch (Exception ex)
+            {
+                return new OperationDetails(false, ex.Message, "");
+            }
         }
 
+        /// <summary>
+        /// Gets all requests of user with the given name. If there is no user with the given name returns null. 
+        /// </summary>
         public async Task<IEnumerable<RequestDTO>> Find(string userName)
         {
             if (userName == null || userName == string.Empty)
@@ -94,7 +103,10 @@ namespace SAS.BLL.Services
                 return null;
             }
         }
-        
+
+        /// <summary>
+        /// Finds a request with the given name in collection of requests of user with the given name. If there is no user with the given name or user does not have request with the given name returns null. 
+        /// </summary
         public async Task<RequestDTO> Find(string userName, string requestName)
         {
             if (userName == null || userName == string.Empty)

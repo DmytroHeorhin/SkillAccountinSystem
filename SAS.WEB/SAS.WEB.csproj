@@ -214,11 +214,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\delete.gif" />
+    <Content Include="Content\cancel1.png" />
+    <Content Include="Content\error.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\rate-star.png" />
     <Content Include="Content\rateit.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\star.gif" />
+    <Content Include="Content\star.png" />
     <Content Include="Content\themes\bars-1to10.css" />
     <Content Include="Content\themes\bars-horizontal.css" />
     <Content Include="Content\themes\bars-movie.css" />
