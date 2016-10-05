@@ -42,7 +42,7 @@ namespace SAS.BLL.Services
             }
             try
             {
-                IdentityRole role = unitOfWork.RoleManager.FindByName(userDto.Role);
+                var role = unitOfWork.RoleManager.FindByName(userDto.Role);
                 if (role == null)
                 {
                     return new OperationDetails(false, "User with invalid role has been provided", "Role");
@@ -52,7 +52,7 @@ namespace SAS.BLL.Services
                     return new OperationDetails(false, "Login is already in use", "UserName");
                 }
 
-                User user = await unitOfWork.UserManager.FindByEmailAsync(userDto.Email);
+                var user = await unitOfWork.UserManager.FindByEmailAsync(userDto.Email);
                 if (user == null)
                 {
                     user = new User { Email = userDto.Email, UserName = userDto.UserName };
@@ -66,7 +66,7 @@ namespace SAS.BLL.Services
                 }
                 else
                 {
-                    return new OperationDetails(false, "Email address already in use", "Email");
+                    return new OperationDetails(false, "Email address is already in use", "Email");
                 }
             }
             catch(Exception ex)
@@ -78,7 +78,6 @@ namespace SAS.BLL.Services
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
         {
             ClaimsIdentity claim = null;
-
             try
             {
                 User userByEmail = await unitOfWork.UserManager.FindByEmailAsync(userDto.Email);
@@ -90,11 +89,58 @@ namespace SAS.BLL.Services
             return claim;
         }
 
+        public OperationDetails UpdateRoles(UserDTO userDto)
+        {
+            if (userDto == null)
+                return new OperationDetails(false, "Empty user has been provided", "");
+            string userName = userDto.UserName;
+            if (userName == null || userDto.UserName == string.Empty)
+                return new OperationDetails(false, "User name is required", "UserName");
+            try
+            {
+                var user = Find(userName);
+                if (user == null)
+                    return new OperationDetails(false, "User does not exist", "UserName");
+                foreach (string role in user.Roles)
+                    if (userDto.Roles.Where(r => r == role).FirstOrDefault() == null)
+                        unitOfWork.UserManager.RemoveFromRole(user.Id, role);
+                foreach (string role in userDto.Roles)
+                    if (user.Roles.Where(r => r == role).FirstOrDefault() == null)
+                        unitOfWork.UserManager.AddToRole(user.Id, role);
+                return new OperationDetails(true, "User roles have been successfully updated", "");
+            }
+            catch(Exception ex)
+            {
+                return new OperationDetails(false, ex.Message, "");
+            }
+        }
+
         public IEnumerable<UserDTO> GetAll()
         {
             try
             {
-                return MapperBag.UserMapper.Map(unitOfWork.UserManager.Users.ToList());
+                var users = MapperBag.UserMapper.Map(unitOfWork.UserManager.Users.ToList());
+                foreach(UserDTO user in users)
+                {
+                    user.Roles = unitOfWork.UserManager.GetRoles(user.Id);
+                }
+                return users;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public UserDTO Find(string userName)
+        {
+            try
+            {
+                var user = MapperBag.UserMapper.Map(unitOfWork.UserManager.FindByName(userName));
+                if (user == null)
+                    return null;
+                user.Roles = unitOfWork.UserManager.GetRoles(user.Id);
+                return user;
             }
             catch
             {

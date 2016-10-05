@@ -1,0 +1,11 @@
+﻿@model SAS.WEB.Models.UserProfileModel
+
+<div class="panel-group">
+    @Property.PropertyFor("First name", @Model.FirstName, false)
+    @Property.PropertyFor("Last name", @Model.LastName, false)
+    @Property.PropertyFor("Contact email", @Model.Email, false)
+    @Property.PropertyFor("Mobile phone", @Model.MobilePhone, Model.ContactPhone == "MobilePhone")
+    @Property.PropertyFor("Work phone", @Model.WorkPhone, Model.ContactPhone == "WorkPhone")
+    @Property.PropertyFor("Home phone", @Model.HomePhone, Model.ContactPhone == "HomePhone")
+</div>
+

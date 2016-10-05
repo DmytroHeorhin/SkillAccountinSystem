@@ -59,7 +59,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="RequestServiceTest.cs" />
     <Compile Include="UserServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

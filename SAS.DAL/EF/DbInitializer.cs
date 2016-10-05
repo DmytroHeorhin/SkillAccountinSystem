@@ -3,6 +3,8 @@ using SAS.DAL.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using RandomNameGenerator;
+using System.Linq;
 
 namespace SAS.DAL.EF
 {
@@ -31,7 +33,6 @@ namespace SAS.DAL.EF
             db.Skills.Add(new Skill { Name = "SQL", Category = PL });
             db.Skills.Add(new Skill { Name = "VB", Category = PL });
             db.Skills.Add(new Skill { Name = "XML/XSL/XSLT", Category = PL });
-
             db.Skills.Add(new Skill { Name = "Android", Category = OS });
             db.Skills.Add(new Skill { Name = "BlackBerry", Category = OS });
             db.Skills.Add(new Skill { Name = "iOS", Category = OS });
@@ -39,7 +40,6 @@ namespace SAS.DAL.EF
             db.Skills.Add(new Skill { Name = "Unix/Linux/Solaris", Category = OS });
             db.Skills.Add(new Skill { Name = "Windows", Category = OS });
             db.Skills.Add(new Skill { Name = "WindowsPhone", Category = OS });
-
             db.Skills.Add(new Skill { Name = "AMAZON", Category = P });
             db.Skills.Add(new Skill { Name = "ATG", Category = P });
             db.Skills.Add(new Skill { Name = "AZURE", Category = P });
@@ -51,8 +51,7 @@ namespace SAS.DAL.EF
             db.Skills.Add(new Skill { Name = "SHAREPOINT", Category = P });
             db.Skills.Add(new Skill { Name = "Tibico", Category = P });
             db.Skills.Add(new Skill { Name = "WS Commerce", Category = P });
-
-            db.Skills.Add(new Skill { Name = "Microsoft SQL Server", Category = Db });
+            Skill MSSQL = db.Skills.Add(new Skill { Name = "Microsoft SQL Server", Category = Db });
             db.Skills.Add(new Skill { Name = "Oracle", Category = Db });
             db.Skills.Add(new Skill { Name = "PostgreSQL", Category = Db });
             db.Skills.Add(new Skill { Name = "MySQL", Category = Db });
@@ -71,7 +70,7 @@ namespace SAS.DAL.EF
             roleManager.Create(role3);
             string passw = "123Qwerty";
             var admUser = new User() { Email = "admin@sas.com", UserName = "Administrator" };            
-            var manUser = new User() { Email = "manager@sas.com", UserName = "Manager" };
+            var manUser = new User() { Email = "manag@sas.com", UserName = "Manager" };
             var usUser = new User() { Email = "user@sas.com", UserName = "User" };
             var result1 = userManager.Create(admUser, passw);
             var result2 = userManager.Create(manUser, passw);
@@ -79,8 +78,8 @@ namespace SAS.DAL.EF
             if (result1.Succeeded)
             {
                 userManager.AddToRole(admUser.Id, role1.Name);
-                userManager.AddToRole(manUser.Id, role2.Name);
-                userManager.AddToRole(manUser.Id, role3.Name);
+                userManager.AddToRole(admUser.Id, role2.Name);
+                userManager.AddToRole(admUser.Id, role3.Name);
             }
             if (result2.Succeeded)
             {
@@ -94,80 +93,29 @@ namespace SAS.DAL.EF
 
             SkillSet set = db.SkillSets.Add(new SkillSet() { User = usUser });
             usUser.SkillSet = set;
-            SkillGrade grade1 = db.SkillGrades.Add(new SkillGrade() { SkillSet = set, Grade = 2, Skill = ABAP });
-            SkillGrade grade2 = db.SkillGrades.Add(new SkillGrade() { SkillSet = set, Grade = 2, Skill = Mining });
+            SkillGrade grade1 = db.SkillGrades.Add(new SkillGrade() { SkillSet = set, Grade = 2, Skill = CS });
+            SkillGrade grade2 = db.SkillGrades.Add(new SkillGrade() { SkillSet = set, Grade = 1, Skill = MSSQL });
 
-            Request req = db.Requests.Add(new Request() { User = usUser, DateTime = DateTime.Now, Name = "ABAP beginners" });
-            SkillRequirement sr = db.SkillRequierements.Add(new SkillRequirement() { Request = req, Grade = 1, Skill = ABAP });
-                       
-            for(int i = 1; i < 21; i++)
+            Random rand = new Random();           
+            for(int i = 1; i < 50; i++)
             {
-                var user = new User() { Email = "beginner" + i.ToString() + "@sas.com", UserName = "Beginner" + i.ToString()};
+                string firstName = NameGenerator.GenerateFirstName((i % 2) == 0 ? Gender.Male : Gender.Female);
+                string lastName = NameGenerator.GenerateLastName();
+                var user = new User() { Email = firstName + "." +lastName + i.ToString() + "@sas.com", UserName = firstName + "_" + lastName + "_" + i.ToString()};
                 var result = userManager.Create(user, passw);
                 if (result.Succeeded)
                 {
-                    userManager.AddToRole(user.Id, role1.Name);                          
+                    userManager.AddToRole(user.Id, role3.Name);                          
                 }
-                var profile = new UserProfile() { FirstName = "John", LastName = "Doe", Email = "e@ma.il", MobilePhone = "1234567890", User = user };
+                var profile = new UserProfile() { FirstName = firstName, LastName = lastName, Email = "e@ma.il", MobilePhone = "1234567890", User = user, ContactPhone = (i % 2) == 0 ? "WorkPhone" : "MobilePhone" };
                 db.UserProfiles.Add(profile);
                 var skillSet = db.SkillSets.Add(new SkillSet() { User = user });
-                foreach(Skill skill in db.Skills)
+                for (int j = 1; j < 10; j++)
                 {
-                    db.SkillGrades.Add(new SkillGrade() { SkillSet = skillSet, Grade = 1, Skill = skill });
+                    var skill = db.Skills.Where(s => s.Id == (i * j > 41 ? (i * j) % 41 : i * j)).First();
+                    db.SkillGrades.Add(new SkillGrade() { SkillSet = skillSet, Grade = rand.Next(1, 4), Skill = skill });
                 }
-            }
-
-            for (int i = 1; i < 11; i++)
-            {
-                var user = new User() { Email = "intermediate" + i.ToString() + "@sas.com", UserName = "Intermediate" + i.ToString() };
-                var result = userManager.Create(user, passw);
-                if (result.Succeeded)
-                {
-                    userManager.AddToRole(user.Id, role1.Name);
-                }
-                var profile = new UserProfile() { FirstName = "Mary", LastName = "Moe", Email = "e@ma.il", MobilePhone = "1234567890", User = user };
-                db.UserProfiles.Add(profile);
-                var skillSet = db.SkillSets.Add(new SkillSet() { User = user });
-                foreach (Skill skill in db.Skills)
-                {
-                    db.SkillGrades.Add(new SkillGrade() { SkillSet = skillSet, Grade = 2, Skill = skill });
-                }
-            }
-
-            for (int i = 1; i < 6; i++)
-            {
-                var user = new User() { Email = "advanced" + i.ToString() + "@sas.com", UserName = "Advanced" + i.ToString() };
-                var result = userManager.Create(user, passw);
-                if (result.Succeeded)
-                {
-                    userManager.AddToRole(user.Id, role1.Name);
-                }
-                var profile = new UserProfile() { FirstName = "July", LastName = "Dooley", Email = "e@ma.il", MobilePhone = "1234567890", User = user };
-                db.UserProfiles.Add(profile);
-                var skillSet = db.SkillSets.Add(new SkillSet() { User = user });
-                foreach (Skill skill in db.Skills)
-                {
-                    db.SkillGrades.Add(new SkillGrade() { SkillSet = skillSet, Grade = 3, Skill = skill });
-                }
-            }
-
-            for (int i = 1; i < 2; i++)
-            {
-                var user = new User() { Email = "Expert" + i.ToString() + "@sas.com", UserName = "Expert" + i.ToString() };
-                var result = userManager.Create(user, passw);
-                if (result.Succeeded)
-                {
-                    userManager.AddToRole(user.Id, role1.Name);
-                }
-                var profile = new UserProfile() { FirstName = "Cordell", LastName = "Walker", Email = "e@ma.il", MobilePhone = "1234567890", User = user };
-                db.UserProfiles.Add(profile);
-                var skillSet = db.SkillSets.Add(new SkillSet() { User = user });
-                foreach (Skill skill in db.Skills)
-                {
-                    db.SkillGrades.Add(new SkillGrade() { SkillSet = skillSet, Grade = 4, Skill = skill });
-                }
-            }
-
+            }          
             db.SaveChanges();
         }
     }

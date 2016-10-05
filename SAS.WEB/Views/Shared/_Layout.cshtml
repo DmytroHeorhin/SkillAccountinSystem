@@ -28,19 +28,20 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li><a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span> Home</a></li>
                     @if (Request.IsAuthenticated && User.IsInRole("user"))
                     {
-                        <li>@Html.ActionLink("Profile", "UserProfile", "UserProfile")</li>
-                        <li>@Html.ActionLink("Skill set", "SkillSet", "SkillSet")</li>
-                        <li>@Html.ActionLink("New request", "CreateRequest", "Request")</li>
-                        <li>@Html.ActionLink("Search history", "Requests", "Request")</li>
+                        <li><a href="@Url.Action("UserProfile", "UserProfile")"><span class="fa fa-user"></span> Profile</a></li>
+                        <li><a href="@Url.Action("SkillSet", "SkillSet")"><span class="fa fa-star-half-o"></span> Skill set</a></li>
+                        <li><a href="@Url.Action("CreateRequest", "Request")"><span class="fa fa fa-search"></span> New request</a></li>
+                        <li><a href="@Url.Action("Requests", "Request")"><span class="fa fa fa-history "></span> Search history</a></li>
                     }
-                    @if (Request.IsAuthenticated && User.IsInRole("manager"))
+                    @if (Request.IsAuthenticated && (User.IsInRole("manager") || User.IsInRole("administrator")))
                     {
-                        <li>@Html.ActionLink("Tools", "Index", "Tools")</li>
+                        <li><a href="@Url.Action("Index", "Tools")"><span class="fa fa fa-wrench"></span> Tools</a></li>
                     }
                 </ul>
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

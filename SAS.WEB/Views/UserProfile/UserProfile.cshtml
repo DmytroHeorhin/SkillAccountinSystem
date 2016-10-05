@@ -1,11 +1,13 @@
 ﻿@model SAS.WEB.Models.UserProfileModel
 
 @{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "UserProfile";
 }
-
-<h2>User profile</h2>
-@Html.DisplayForModel()
-<p><a class="btn btn-default" href="@Url.Action("EditProfile", "UserProfile")"><span class="fa fa-wrench"></span> Edit</a></p> 
-
-
+<div class="container">
+    <h3>Profile</h3>
+    <div class="row">
+        <div class="col-md-6">
+            @{Html.RenderPartial("_UserProfile", Model);}
+        </div>
+    </div>
+</div>

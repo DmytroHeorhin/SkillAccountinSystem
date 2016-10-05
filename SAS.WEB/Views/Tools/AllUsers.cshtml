@@ -1,0 +1,58 @@
+﻿@using SAS.WEB.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<UserModel>
+
+@{
+    ViewBag.Title = "AllUsers";
+}
+
+<div class="container">
+    <h3>All users</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">List of users</div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Candidate</th>
+                                <th>Email</th>
+                                <th>Roles</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int i = 0; }
+                            @foreach (UserModel user in Model)
+                            {
+                                i++;
+                                <tr>
+                                    <td class="col-md-1">@i</td>
+                                    <td><a href="/UserProfile/ProfileOfUser/?userName=@user.UserName">@user.UserName</a></td>
+                                    <td>@user.Email</td>
+                                    <td>
+                                        @foreach (string role in user.Roles)
+                                        {
+                                            @(role + " ")
+                                        }
+                                    </td>
+                                    <td><a href="/Tools/EditUser/?userName=@user.UserName"><span class="fa fa-wrench"></span> Edit</a></td>
+                                </tr>
+                            }
+                            <tr>
+                                <td align="center" colspan="5">
+                                    @Html.PagedListPager(Model, page => Url.Action("AllUsers", "Tools", new { page }))
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

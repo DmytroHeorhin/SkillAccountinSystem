@@ -14,7 +14,9 @@ namespace SAS.BLL.Interfaces
     {
         Task<OperationDetails> Create(UserDTO userDto);
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);
+        OperationDetails UpdateRoles(UserDTO userDto);
         IEnumerable<UserDTO> GetAll();
+        UserDTO Find(string userName);
         IEnumerable<UserDTO> GetByRequest(IEnumerable<SkillRequirementDTO> request);
     }
 }

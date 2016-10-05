@@ -285,6 +285,11 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="App_Code\SkillList.cshtml" />
+    <Content Include="App_Code\Property.cshtml" />
+    <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\jquery-1.10.2.js" />
+    <Content Include="scripts\jquery-1.10.2.min.js" />
+    <Content Include="scripts\jquery-1.10.2.min.map" />
     <None Include="scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
@@ -331,6 +336,7 @@
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\ProfileAndSkillsModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\RequestViewModel.cs" />
@@ -339,7 +345,7 @@
     <Compile Include="Models\SkillModel.cs" />
     <Compile Include="Models\SkillSetViewModel.cs" />
     <Compile Include="Models\UserProfileModel.cs" />
-    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mapping\ComplexMapper.cs" />
     <Compile Include="Util\ModelBuilder.cs" />
@@ -365,9 +371,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\UserProfile\EditProfile.cshtml" />
-    <Content Include="Views\UserProfile\UserProfile.cshtml" />
-    <Content Include="Views\UserProfile\temp.cshtml" />
-    <Content Include="Views\UserProfile\ProfileOfUser.cshtml" />
     <Content Include="Views\SkillSet\EditSkillSet.cshtml" />
     <Content Include="Views\SkillSet\SkillSet.cshtml" />
     <Content Include="Views\SkillSet\Unsuccessful.cshtml" />
@@ -381,6 +384,11 @@
     <Content Include="Views\Tools\Index.cshtml" />
     <Content Include="Views\Tools\Successful.cshtml" />
     <Content Include="Views\Tools\CreateSkill.cshtml" />
+    <Content Include="Views\UserProfile\_UserProfile.cshtml" />
+    <Content Include="Views\UserProfile\UserProfile.cshtml" />
+    <Content Include="Views\UserProfile\ProfileOfUser.cshtml" />
+    <Content Include="Views\Tools\AllUsers.cshtml" />
+    <Content Include="Views\Tools\EditUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

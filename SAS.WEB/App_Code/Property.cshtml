@@ -1,0 +1,16 @@
+﻿@helper PropertyFor(string label, string value, bool contactPhone)
+{
+if (value != null || value != string.Empty)
+{
+        <div class="panel panel-default">
+            <div class="panel-heading">@label</div>
+            <div class="panel-body">
+                <p>
+                    @value
+                    @if (contactPhone)
+                    {<span class="fa fa-check"></span>}
+                </p> 
+            </div>
+        </div>
+}
+}

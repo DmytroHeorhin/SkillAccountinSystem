@@ -11,6 +11,15 @@ namespace SAS.DAL.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         SASContext _dbContext;
+        UserManager<User> userManager;
+        RoleManager<IdentityRole> roleManager;
+        IRepository<UserProfile> userProfileRepository;
+        IRepository<Category> categoryRepository;
+        IRepository<Skill> skillRepository;
+        IRepository<SkillGrade> skillGradeRepository;
+        IRepository<SkillSet> skillSetRepository;
+        IRepository<SkillRequirement> skillRequirementRepository;
+        IRepository<Request> requestRepository;
 
         public UnitOfWork()
         {
@@ -22,7 +31,9 @@ namespace SAS.DAL.Repositories
         {
             get
             {
-                return new UserManager<User>(new UserStore<User>(_dbContext));
+                if(userManager == null)
+                    userManager = new UserManager<User>(new UserStore<User>(_dbContext));
+                return userManager;
             }
         }
 
@@ -30,7 +41,9 @@ namespace SAS.DAL.Repositories
         {
             get
             {
-                return new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_dbContext));
+                if(roleManager == null)
+                    roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_dbContext));
+                return roleManager;
             }
         }
 
@@ -38,7 +51,9 @@ namespace SAS.DAL.Repositories
         {
             get
             {
-                return new UserProfileRepository(_dbContext);
+                if(userProfileRepository == null)
+                    userProfileRepository = new UserProfileRepository(_dbContext);
+                return userProfileRepository;
             }
         }
 
@@ -46,7 +61,9 @@ namespace SAS.DAL.Repositories
         {
             get
             {
-                return new CategoryRepository(_dbContext);
+                if(categoryRepository == null)
+                    categoryRepository = new CategoryRepository(_dbContext);
+                return categoryRepository;
             }
         }
 
@@ -54,7 +71,9 @@ namespace SAS.DAL.Repositories
         {
             get
             {
-                return new SkillRepository(_dbContext);
+                if(skillRepository == null)
+                    skillRepository = new SkillRepository(_dbContext);
+                return skillRepository;
             }
         }
 
@@ -62,7 +81,9 @@ namespace SAS.DAL.Repositories
         {
             get
             {
-                return new SkillGradeRepository(_dbContext);
+                if(skillGradeRepository == null)
+                    skillGradeRepository = new SkillGradeRepository(_dbContext);
+                return skillGradeRepository;
             }
         }
 
@@ -70,7 +91,9 @@ namespace SAS.DAL.Repositories
         {
             get
             {
-                return new SkillSetRepository(_dbContext);
+                if(skillSetRepository == null)
+                    skillSetRepository= new SkillSetRepository(_dbContext);
+                return skillSetRepository;
             }
         }
 
@@ -78,7 +101,9 @@ namespace SAS.DAL.Repositories
         {
             get
             {
-                return new SkillRequirementRepository(_dbContext);
+                if(skillRequirementRepository == null)
+                    skillRequirementRepository = new SkillRequirementRepository(_dbContext);
+                return skillRequirementRepository;
             }
         }
 
@@ -86,7 +111,9 @@ namespace SAS.DAL.Repositories
         {
             get
             {
-                return new RequestRepository(_dbContext);
+                if(requestRepository == null)
+                    requestRepository = new RequestRepository(_dbContext);
+                return requestRepository;
             }
         }     
         #endregion

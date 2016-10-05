@@ -1,31 +1,20 @@
 ﻿@using SAS.WEB.Models
 @model SkillSetViewModel
-@{ bool hasSkillGardes = false; }
-@foreach (CategoryViewModel category in Model.Categories.Where(c => c.ContainsPositiveSkillGrades == true))
-{
-    { hasSkillGardes = true; }
-    <h4>@category.Name</h4>
-    foreach (SkillModel skill in category.Skills.Where(s => s.SkillGrade.Grade > 0))
-    {
-        <div class="row">
-            <div class="col-md-3">
-                <h6>@(skill.Name)</h6>
+
+<div class="contaner">
+    <h3>Skill set</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @SkillList.PositiveSkillListFor(Model)
+                    @if (Model.Categories.Where(c => c.ContainsPositiveSkillGrades == true).Count() == 0)
+                    {
+                        <p>You have not rate your skills yet. Click <b><span class="fa fa-wrench"></span> Edit</b> to rate your skills!</p>
+                    }
+                </div>
             </div>
-            <div class="col-md-6">
-                <select id="@("sr" + skill.Id)" name="grades" disabled>
-                    <option value="0" @(skill.SkillGrade.Grade == 0 ? "selected" : "")>Choose your level</option>
-                    <option value="1" @(skill.SkillGrade.Grade == 1 ? "selected" : "")>Beginner</option>
-                    <option value="2" @(skill.SkillGrade.Grade == 2 ? "selected" : "")>Intermediate</option>
-                    <option value="3" @(skill.SkillGrade.Grade == 3 ? "selected" : "")>Advanced</option>
-                    <option value="4" @(skill.SkillGrade.Grade == 4 ? "selected" : "")>Expert</option>
-                </select>
-                <div class="rateit" data-rateit-backingfld="#@("sr" + skill.Id)"></div>
-            </div>
+            <p><a class="btn btn-default" href="@Url.Action("EditSkillSet", "SkillSet")"><span class="fa fa-wrench"></span> Edit</a></p>
         </div>
-    }
-}
-@if (!hasSkillGardes)
-{
-    <p>You have not rate your skills yet. Click <b><span class="fa fa-wrench"></span> Edit</b> to rate your skills!</p>
-}
-<p><a class="btn btn-default" href="@Url.Action("EditSkillSet", "SkillSet")"><span class="fa fa-wrench"></span> Edit</a></p>
+    </div>
+</div>

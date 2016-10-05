@@ -1,6 +1,7 @@
 ﻿using SAS.BLL.Interfaces;
 using SAS.WEB.Mapping;
 using SAS.WEB.Models;
+using SAS.WEB.Util;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -11,12 +12,14 @@ namespace SAS.WEB.Controllers
     public class UserProfileController : Controller
     {
         IServiceBag serviceBag;
+        ModelBuilder modelBuilder;
 
         public UserProfileController(IServiceBag ServiceBag)
         {
             serviceBag = ServiceBag;
+            modelBuilder = new ModelBuilder(serviceBag);
         }
-
+      
         [HttpGet]
         public async Task<ActionResult> UserProfile()
         {
@@ -24,17 +27,25 @@ namespace SAS.WEB.Controllers
             var model = MapperBag.UserProfileMapper.Map(await serviceBag.UserProfileService.FindByNameAsync(userName));
             if (model == null)
                 return Redirect("/UserProfile/EditProfile");
-            model.UserName = userName; // do I need this??
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult _UserProfile(UserProfileModel model)
+        {
             return View(model);
         }
        
         [HttpGet]
         public async Task<ActionResult> ProfileOfUser(string userName)
         {
-            var model = MapperBag.UserProfileMapper.Map(await serviceBag.UserProfileService.FindByNameAsync(userName));
-            if (model == null)
-                return new HttpNotFoundResult();  
-            model.UserName = userName; // do I need this??
+            var profile = MapperBag.UserProfileMapper.Map(await serviceBag.UserProfileService.FindByNameAsync(userName));
+            if (profile == null)
+                return new HttpNotFoundResult(); 
+            var skillSet = await modelBuilder.ObtainSkillSetVievModel(userName);
+            if (skillSet == null)
+                return new HttpNotFoundResult();
+            ProfileAndSkillsModel model = new ProfileAndSkillsModel() { Profile = profile, SkillSet = skillSet };
             return View(model);
         } 
 

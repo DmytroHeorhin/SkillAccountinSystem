@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4>Search results</h4></div>
+                <div class="panel-heading">Search results</div>
                 <div class="panel-body">
                     <table class="table">
                         <thead>
@@ -17,7 +17,7 @@
                         </thead>
                         <tbody>
                             @{ int i = 0; }
-                            @foreach (UserViewModel user in Model.Users)
+                            @foreach (UserModel user in Model.Users)
                             {
                                  i++; 
                                 <tr>
@@ -37,17 +37,17 @@
             </div>
             <p>
                 <a class="btn btn-default" href="/Request/CreateRequest"><span class="fa fa-search-plus"></span> New request</a>
-                <a class="btn btn-default" href="/Request/Requests"><span class="fa fa-history"></span> Request history</a>
+                <a class="btn btn-default" href="/Request/Requests"><span class="fa fa-history"></span> Search history</a>
             </p>
         </div>
         <div class="col-md-6">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4>Request name</h4></div>
+                <div class="panel-heading">Request name</div>
                 <div class="panel-body"><p>@Model.Name</p></div>
             </div>
             <div class="panel panel-default">
-                <div class="panel-heading"><h4>Skill requirements</h4></div>
-                <div class="panel-body"><p>@SkillList.PositiveSkillListFor(Model.Request)</p></div>
+                <div class="panel-heading">Skill requirements</div>
+                <div class="panel-body">@SkillList.PositiveSkillListFor(Model.Request)</div>
             </div>
         </div>
     </div>

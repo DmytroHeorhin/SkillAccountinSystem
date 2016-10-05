@@ -26,6 +26,6 @@ namespace SAS.WEB.Models
         public DateTime DateTime { get; set; }
 
         public SkillSetViewModel Request { get; set; }
-        public IPagedList<UserViewModel> Users { get; set; }
+        public IPagedList<UserModel> Users { get; set; }
     }
 }

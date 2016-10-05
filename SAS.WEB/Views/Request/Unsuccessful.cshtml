@@ -13,5 +13,8 @@
     </div>
 </div>
 
-@ViewBag.Massage
+@if (Request.IsAuthenticated && User.IsInRole("administrator"))
+{
+    <p>@ViewBag.Massage</p>
+}
 

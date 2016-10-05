@@ -9,8 +9,10 @@ namespace SAS.BLL.DTO
         public string Password { get; set; }
         public string UserName { get; set; }
         public string Role { get; set; }
+        public IList<string> Roles { get; set; }
         public int SkillSetId { get; set; }
         public int UserProfileId { get; set; }
         public List<RequestDTO> RequestDTOs { get; set; }
+        
     }
 }

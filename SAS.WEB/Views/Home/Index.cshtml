@@ -2,34 +2,83 @@
 @{
     ViewBag.Title = "Home";
 }
+<div class="container">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <div class="jumbotron">
+                    <h1>Skill Accounting System<br /></h1>
+                    <p>
+                        Skill Accounting System has been created to help employers find professionals with required skill sets and create team which will fulfill their business needs.
+                        <br />
+                    </p>
+                    @if (Request.IsAuthenticated && User.IsInRole("user"))
+                    {
+                        <p>
+                            <a class="btn btn-default" href="@Url.Action("SkillSet", "SkillSet")"><span class="fa fa-star-half-o"></span> Rate your skills!</a>
+                            <a class="btn btn-default" href="@Url.Action("CreateRequest", "Request")"><span class="fa fa-search"></span> Search for employees!</a>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>Sign in to get started!</p>
+                        <p>
+                            <a class="btn btn-default" href="@Url.Action("Login", "Account")"><span class="fa fa-sign-in"></span> Sign in</a>
+                            <a class="btn btn-default" href="@Url.Action("Register", "Account")">Register</a>
+                        </p>
+                    }
 
-<h2>Welcome!</h2>
-<div>This is Skill Accounting System</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="jumbotron">
+                    <h1>Looking for a job?</h1>
+                    <p>
+                        Rate your skills and employers will find you and give you offers.
+                        <br />
+                        <br />
+                    </p>
 
-@if (Request.IsAuthenticated)
-{
-<h3>Hello @User.Identity.GetUserName()!</h3>
-}
-else
-{
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Skill Accounting System has been created to help employers find professionals with required skill sets and create team which will fulfill their business needs.
-            <br />Sign in to get started!  
-        </p>   
-        <p><a class="btn btn-default" href="@Url.Action("Login", "Account")"><span class="fa fa-sign-in"></span> Sign in</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Looking for a job?</h2>
-        <p>Register as candidate, rate your skills and employers will find you and give you offers.</p>
-        <p><a class="btn btn-default" href="@Url.Action("Register", "Account")">Register as candidate</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Looking for employees?</h2>
-        <p>Register as employer, provide your requirements and choose from list of candidates who have appropriate skills.</p>
-        <p><a class="btn btn-default" href="@Url.Action("RegisterAsManager", "Account")">Register as employer</a></p>
+                    @if (Request.IsAuthenticated && User.IsInRole("user"))
+                    {
+                        <p><a class="btn btn-default" href="@Url.Action("SkillSet", "SkillSet")"><span class="fa fa-star-half-o"></span> Rate your skills!</a></p>
+                    }
+                    else
+                    {
+                        <p>Sign in to get started!</p>
+                        <p>
+                            <a class="btn btn-default" href="@Url.Action("Login", "Account")"><span class="fa fa-sign-in"></span> Sign in</a>
+                            <a class="btn btn-default" href="@Url.Action("Register", "Account")">Register</a>
+                        </p>
+                    }
+                </div>
+            </div>
+            <div class="item">
+                <div class="jumbotron">
+                    <h1>Looking for employees?<br /></h1>
+                    <p>
+                        Provide your requirements and choose from list of candidates who have appropriate skills.
+                        <br />
+                        <br />
+                    </p>
+                    @if (Request.IsAuthenticated && User.IsInRole("user"))
+                    {
+                        <p><a class="btn btn-default" href="@Url.Action("CreateRequest", "Request")"><span class="fa fa-search"></span> Search for employees!</a></p>
+                    }
+                    else
+                    {
+                        <p>Sign in to get started!</p>
+                        <p>
+                            <a class="btn btn-default" href="@Url.Action("Login", "Account")"><span class="fa fa-sign-in"></span> Sign in</a>
+                            <a class="btn btn-default" href="@Url.Action("Register", "Account")">Register</a>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-}
+
+
+
+

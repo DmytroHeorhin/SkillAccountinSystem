@@ -1,0 +1,27 @@
+﻿@model SAS.WEB.Models.UserModel
+
+@{
+    ViewBag.Title = "Edit user";
+}
+<div class="container">
+    <h2>Edit user</h2>
+    <div class="row">
+        @using (Html.BeginForm("EditUser", "Tools", FormMethod.Post))
+        {
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="panel-heading">User roles</div>
+                    <div class="panel-body">
+                        <input type="checkbox" name="Roles" value="user" @(Model.Roles.Where(r => r == "user").FirstOrDefault() != null ? "checked" : "") > <label>User</label> <br />
+                        <input type="checkbox" name="Roles" value="manager" @(Model.Roles.Where(r => r == "manager").FirstOrDefault() != null ? "checked" : "")> <label>Manager</label><br />
+                        <input type="checkbox" name="Roles" value="administrator" @(Model.Roles.Where(r => r == "administrator").FirstOrDefault() != null ? "checked" : "")> <label>Administrator</label><br />
+                    </div>
+                </div>
+                <input name="UserName" type="hidden" value="@Model.UserName" />
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        }
+    </div>
+</div>
+

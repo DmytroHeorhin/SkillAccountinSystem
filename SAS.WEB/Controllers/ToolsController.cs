@@ -1,4 +1,5 @@
-﻿using SAS.BLL.Interfaces;
+﻿using PagedList;
+using SAS.BLL.Interfaces;
 using SAS.BLL.Services;
 using SAS.WEB.Mapping;
 using SAS.WEB.Models;
@@ -43,6 +44,7 @@ namespace SAS.WEB.Controllers
                 if (operationDetails.Succeeded)
                 {
                     ViewBag.Item = "Category";
+                    ViewBag.State = "created";
                     return View("Successful");
                 }
                 else
@@ -72,6 +74,7 @@ namespace SAS.WEB.Controllers
                 if (operationDetails.Succeeded)
                 {
                     ViewBag.Item = "Skill";
+                    ViewBag.State = "created";
                     return View("Successful");
                 }
                 else
@@ -87,6 +90,44 @@ namespace SAS.WEB.Controllers
         {
             serviceBag.Dispose();
             base.Dispose(disposing);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "administrator")]
+        public ActionResult AllUsers(int? page)
+        {
+            var users = MapperBag.UserMapper.Map(serviceBag.UserService.GetAll());
+            var model = users.ToPagedList(page ?? 1, 10);
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "administrator")]
+        public ActionResult EditUser(string userName)
+        {
+            var model = MapperBag.UserMapper.Map(serviceBag.UserService.Find(userName));
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "administrator")]
+        public ActionResult EditUser(UserModel user)
+        {
+            if (user == null)
+                return new HttpNotFoundResult();
+            if (ModelState.IsValid)
+            {
+                var operationDetails = serviceBag.UserService.UpdateRoles(MapperBag.UserMapper.Map(user));
+                if(operationDetails.Succeeded)
+                {
+                    ViewBag.Item = "User";
+                    ViewBag.State = "updated";
+                    return View("Successful");
+                }
+                ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
+            }                                  
+            return View(user);
         }
     }
 }

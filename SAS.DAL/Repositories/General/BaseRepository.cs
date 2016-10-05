@@ -24,7 +24,7 @@ namespace SAS.DAL.Repositories
         {
             return _dbSet.FirstOrDefault(e => e.Id == id);
         }
-        
+       
         public virtual IEnumerable<T> GetAll()
         {
             return _dbSet.OrderBy(e => e.Id).ToList();

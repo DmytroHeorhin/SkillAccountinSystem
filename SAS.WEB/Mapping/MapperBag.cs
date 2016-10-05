@@ -15,9 +15,9 @@ namespace SAS.WEB.Mapping
             get { return new MapperWrapper<SkillRequirementDTO, SkillGradeModel>(); }
         }
 
-        public static MapperWrapper<UserDTO, UserViewModel> UserMapper
+        public static MapperWrapper<UserDTO, UserModel> UserMapper
         {
-            get { return new MapperWrapper<UserDTO, UserViewModel>(); }
+            get { return new MapperWrapper<UserDTO, UserModel>(); }
         }
 
         public static MapperWrapper<UserProfileDTO, UserProfileModel> UserProfileMapper

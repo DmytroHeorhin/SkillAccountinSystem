@@ -102,10 +102,6 @@ namespace SAS.WEB.Controllers
                 else
                     ViewBag.Massage = operationDetails.Message;
             }
-            else
-            {
-                ViewBag.Massage = "empty name";
-            }
             return View("Unsuccessful");      
         }
 
